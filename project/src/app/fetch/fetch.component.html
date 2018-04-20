@@ -1,0 +1,10 @@
+<div>
+  fetch works! <br />
+  <input type="text" #input/>
+  <button (click)="onClick(input.value)">click</button>
+
+  <p>
+    {{ data | json }}
+  </p>
+  <img src="{{data.message}}" />
+</div>
