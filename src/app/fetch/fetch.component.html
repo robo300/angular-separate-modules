@@ -1,14 +1,22 @@
 <div>
-  fetch works!
-  <br />
   <input type="text" #input/>
-  <button (click)="onClick(input.value)">click</button>
-
-  <div *ngIf="data">
-    <pre>raw json: {{ data | json }}</pre>
-    <table>
-      <th>ID</th>
-      <td *ngFor="let x of matches" style="border: 1px solid black">{{x.id}}</td>      
-    </table>
+  <button (click)="onStartButtonClick(input.value)">start</button>
+  <button (click)="onStopButtonClick(input.value)">stop</button>
+  <button (click)="onAddItemToQueueClick(input.value)">add to queue</button>
+  <button (click)="onPrintItemsClick(input.value)">print queue</button>
+  
+  <div *ngIf="getQueue()">
+    items left to fetch: {{ counter }}
+    items left to fetch as data: {{ getQueue() }}
+    <ul>
+      <li *ngFor="let i of getQueue()">
+        item : {{  i }}
+      </li>
+    </ul>
   </div>
+  
+  <div *ngIf="dog">
+    <img src="{{dog.message}}" />
+  </div>
+
 </div>
