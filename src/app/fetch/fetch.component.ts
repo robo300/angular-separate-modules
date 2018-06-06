@@ -1,3 +1,8 @@
+import { GetWatchedShowsApiCall } from './../pkg/getWatchedShowsApiCall';
+import { View } from './../model/view';
+import { Show } from './../model/show';
+import { ApiItem } from './../model/apiItem';
+import { HttpHeaders } from '@angular/common/http';
 import { Dog } from './../model/dog';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
@@ -14,11 +19,12 @@ import { IObserver } from '../observable/IObserver';
   templateUrl: './fetch.component.html',
   styleUrls: ['./fetch.component.css']
 })
+
 export class FetchComponent implements OnInit, IObserver {
   public looper: any;
-  public testNumber = [];
   public counter = 0;
-  public dog: Dog;
+  public view: View = new View();
+
   receiveNotification<T>(message: T): void {
     console.log('client received notification: ' + message);
   }
@@ -38,7 +44,8 @@ export class FetchComponent implements OnInit, IObserver {
   }
 
   onAddItemToQueueClick(e) {
-    this.queue.push('https://dog.ceo/api/breeds/image/random');
+    const queueItem = new GetWatchedShowsApiCall(this.fetchService, this.view, this.queue);
+    this.queue.push(queueItem);
     this.counter++;
   }
 
@@ -47,19 +54,13 @@ export class FetchComponent implements OnInit, IObserver {
   }
 
   public getQueue() {
-    return this.queue.queue;
+    return this.queue.getQueue();
   }
 
   private startLooper() {
-    this.looper = interval(2000).subscribe(v => {
-      if (this.queue.queue.length > 0) {
-        console.log('2 seconds passed');
-        const apiToFetchFrom = this.queue.getFirst();
-        this.fetchService.getDataFromUrl(apiToFetchFrom).subscribe(dog => {
-          console.log(dog);
-          this.dog = dog;
-          this.counter--;
-        });
+    this.looper = interval(100).subscribe(v => {
+      if (this.queue.getSize() > 0) {
+        this.queue.getFirst().getDataFromApi();
       } else {
         console.log('empty queue so nothing to fetch');
         this.stopLooper();

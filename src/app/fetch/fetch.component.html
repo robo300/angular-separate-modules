@@ -4,19 +4,33 @@
   <button (click)="onStopButtonClick(input.value)">stop</button>
   <button (click)="onAddItemToQueueClick(input.value)">add to queue</button>
   <button (click)="onPrintItemsClick(input.value)">print queue</button>
-  
+
+
+  <table style="border: 1px solid black">
+    <tr>
+      <th>image</th>
+      <th>title</th>
+      <th>last watched</th>
+    </tr>
+    <tr *ngFor="let show of view.getShows()">
+      <td>
+        <img src="{{ show.getImage() }}" />
+      </td>
+      <td>{{ show.getTitle() }}</td>
+      <td>{{ show.getWatchedHowLongFromNow() }}</td>
+    </tr>
+  </table>
+
   <div *ngIf="getQueue()">
-    items left to fetch: {{ counter }}
-    items left to fetch as data: {{ getQueue() }}
+    items left to fetch: {{ counter }} items left to fetch as data: {{ getQueue() }}
     <ul>
       <li *ngFor="let i of getQueue()">
-        item : {{  i }}
+        item url :
+        <b>{{i.getRequest().getUrl()}}</b>
+        , item headers:
+        <b>{{ i.getRequest().getHeaders() }}</b>
       </li>
     </ul>
-  </div>
-  
-  <div *ngIf="dog">
-    <img src="{{dog.message}}" />
   </div>
 
 </div>

@@ -13,10 +13,17 @@ export class FetchService {
 
     constructor(private http: HttpClient, private queue: Queue) { }
 
-    public getDataFromUrl(url: string): Observable<Dog> {
-        return this.http.get<Dog>(url).map((res) => {
-            console.log(res);
-            return res;
-        });
+    public getDataFromUrl(url: string, httpHeaders: any): Observable<any> {
+        if (httpHeaders) {
+            return this.http.get(url, httpHeaders).map((res) => {
+                console.log(res);
+                return res;
+            });
+        } else {
+            return this.http.get(url).map((res) => {
+                console.log(res);
+                return res;
+            });
+        }
     }
 }
