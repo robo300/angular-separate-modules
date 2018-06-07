@@ -1,6 +1,6 @@
-import { GetWatchedShowsApiCall } from './../pkg/getWatchedShowsApiCall';
+import { GetWatchedShowsApiCall } from './apiCalls/getWatchedShowsApiCall';
 import { View } from './../model/view';
-import { Show } from './../model/show';
+import { Show } from './models/show';
 import { ApiItem } from './../model/apiItem';
 import { HttpHeaders } from '@angular/common/http';
 import { Dog } from './../model/dog';
@@ -15,12 +15,12 @@ import { interval } from 'rxjs/observable/interval';
 import { IObserver } from '../observable/IObserver';
 
 @Component({
-  selector: 'app-fetch',
-  templateUrl: './fetch.component.html',
-  styleUrls: ['./fetch.component.css']
+  selector: 'app-shows',
+  templateUrl: './shows.component.html',
+  styleUrls: ['./shows.component.css']
 })
 
-export class FetchComponent implements OnInit, IObserver {
+export class ShowsComponent implements OnInit, IObserver {
   public looper: any;
   public counter = 0;
   public view: View = new View();

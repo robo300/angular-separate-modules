@@ -1,8 +1,8 @@
 import { GetTVDBShowDetailsApiCall } from './getTVDBShowDetailsApiCall';
 import { HttpHeaders } from '@angular/common/http';
-import { ApiItem } from './../model/apiItem';
-import { Show } from './../model/show';
-import { AbstractApiCall } from './abstractApiCall';
+import { ApiItem } from './../../model/apiItem';
+import { Show } from './../models/show';
+import { AbstractApiCall } from './../../pkg/abstractApiCall';
 
 export class GetWatchedShowsApiCall extends AbstractApiCall {
 

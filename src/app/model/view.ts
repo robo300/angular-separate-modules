@@ -1,4 +1,4 @@
-import { Show } from './show';
+import { Show } from '../shows/models/show';
 export class View {
     private shows: Array<Show> = [];
 

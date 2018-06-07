@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 
 import { AppComponent } from './app.component';
-import { FetchComponent } from './fetch/fetch.component';
+import { ShowsComponent } from './shows/shows.component';
 import { FetchService } from './fetch.service';
 import { QueueComponent } from './queue/queue.component';
 import { Queue } from './queue/queue';
@@ -13,7 +13,7 @@ import { Queue } from './queue/queue';
 @NgModule({
   declarations: [
     AppComponent,
-    FetchComponent,
+    ShowsComponent,
     QueueComponent
 ],
   imports: [

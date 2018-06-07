@@ -1,5 +1,5 @@
-import { ApiItem } from './../model/apiItem';
-import { AbstractApiCall } from './abstractApiCall';
+import { ApiItem } from '../../model/apiItem';
+import { AbstractApiCall } from '../../pkg/abstractApiCall';
 
 export class GetShowsImageUrlApiCall extends AbstractApiCall {
 
