@@ -1,7 +1,7 @@
 import * as moment from 'moment';
 
 export class Show {
-    private title: string;
+    private readonly title: string;
     private image: string;
     private last_watched_at: Date;
 

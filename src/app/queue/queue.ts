@@ -8,6 +8,7 @@ export class Queue implements IObservable {
 
     private queue: Array<AbstractApiCall> = [];
     public observers: IObserver[] = [];
+    private busy = false;
 
     registerObserver(observer: IObserver) {
         this.observers.push(observer);
@@ -21,12 +22,12 @@ export class Queue implements IObservable {
     }
     notifyObservers() {
         for (let i = 0; i < this.observers.length; i++) {
-            // this.observers[i].receiveNotification(this.print());
+            this.observers[i].receiveNotification(null);
         }
     }
 
     constructor() {
-        console.log('queue constructor');
+      console.log('queue constructor');
     }
 
     public push(item: AbstractApiCall): void {
@@ -36,13 +37,12 @@ export class Queue implements IObservable {
 
     public getFirst(): AbstractApiCall {
         const first = this.queue[0];
-        this.queue.splice(0, 1);
         return first;
     }
 
     public print(): void {
         for (let i = 0; i < this.getQueue().length; i++) {
-            console.log(JSON.stringify(i));
+            console.log(this.getQueue().length);
         }
     }
 
@@ -52,5 +52,21 @@ export class Queue implements IObservable {
 
     public getSize(): number {
         return this.queue.length;
+    }
+
+    public removeFirst(): void {
+      this.queue.splice(0, 1);
+    }
+
+    public setBusy(): void {
+      this.busy = true;
+    }
+
+    public setNotBusy(): void {
+      this.busy = false;
+    }
+
+    public isBusy(): boolean {
+      return this.busy;
     }
 }

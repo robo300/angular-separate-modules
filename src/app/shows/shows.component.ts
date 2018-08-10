@@ -1,18 +1,13 @@
 import { GetWatchedShowsApiCall } from './apiCalls/getWatchedShowsApiCall';
-import { View } from './../model/view';
+import { View } from '../model/view';
 import { Show } from './models/show';
-import { ApiItem } from './../model/apiItem';
-import { HttpHeaders } from '@angular/common/http';
-import { Dog } from './../model/dog';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/interval';
 import { Component, OnInit } from '@angular/core';
 import { FetchService } from '../fetch.service';
-import { map } from 'rxjs/operators';
-import { from } from 'rxjs/observable/from';
 import { Queue } from '../queue/queue';
-import { interval } from 'rxjs/observable/interval';
 import { IObserver } from '../observable/IObserver';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/map';
+import { interval } from 'rxjs/observable/interval';
 
 @Component({
   selector: 'app-shows',
@@ -23,13 +18,12 @@ import { IObserver } from '../observable/IObserver';
 export class ShowsComponent implements OnInit, IObserver {
   public looper: any;
   public counter = 0;
-  public view: View = new View();
 
   receiveNotification<T>(message: T): void {
-    console.log('client received notification: ' + message);
+    // console.log('client received notification: ' + message);
   }
 
-  constructor(private fetchService: FetchService, public queue: Queue) { }
+  constructor(private fetchService: FetchService, private queue: Queue, private view: View) { }
 
   ngOnInit() {
     this.queue.registerObserver(this);
@@ -53,16 +47,16 @@ export class ShowsComponent implements OnInit, IObserver {
     this.queue.print();
   }
 
-  public getQueue() {
-    return this.queue.getQueue();
-  }
-
   private startLooper() {
     this.looper = interval(100).subscribe(v => {
       if (this.queue.getSize() > 0) {
-        this.queue.getFirst().getDataFromApi();
+        if (!this.queue.isBusy()) {
+          this.queue.getFirst().getDataFromApi();
+        } else {
+          // wait for ready queue
+        }
       } else {
-        console.log('empty queue so nothing to fetch');
+        console.log(`empty queue so nothing to fetch, queue size: ${this.queue.getSize()}, queue state busy?: ${this.queue.isBusy()}`);
         this.stopLooper();
       }
     });
@@ -75,5 +69,9 @@ export class ShowsComponent implements OnInit, IObserver {
     } else {
       console.log('nothing to unsubscribe');
     }
+  }
+
+  public getShows(): Array<Show> {
+    return this.view.getShows();
   }
 }

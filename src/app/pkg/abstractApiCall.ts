@@ -8,9 +8,16 @@ export abstract class AbstractApiCall {
     constructor(protected fetchService: FetchService, protected view: View, protected queue: Queue, protected parent?: any) { }
 
     public getDataFromApi() {
-        this.fetchService.getDataFromUrl(this.getRequest().getUrl(), this.getRequest().getHeaders()).subscribe(response => {
+      this.queue.setBusy();
+        this.fetchService.getDataFromUrl(this.getRequest().getUrl(), this.getRequest().getHeaders()).subscribe(
+          response => {
+            this.queue.removeFirst();
+            this.queue.setNotBusy();
             this.doSomethingWithResponse(response);
-        });
+          }, error => {
+            this.queue.setNotBusy();
+            console.log('error during get data from api: ' + error);
+          });
     }
 
     public abstract doSomethingWithResponse(response: any);

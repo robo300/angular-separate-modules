@@ -5,14 +5,13 @@
   <button (click)="onAddItemToQueueClick(input.value)">add to queue</button>
   <button (click)="onPrintItemsClick(input.value)">print queue</button>
 
-
-  <table style="border: 1px solid black">
+  <table *ngIf="getShows().length > 0" style="border: 1px solid black">
     <tr>
       <th>image</th>
       <th>title</th>
       <th>last watched</th>
     </tr>
-    <tr *ngFor="let show of view.getShows()">
+    <tr *ngFor="let show of getShows()">
       <td>
         <img src="{{ show.getImage() }}" />
       </td>
@@ -21,7 +20,7 @@
     </tr>
   </table>
 
-  <div *ngIf="getQueue()">
+  <!-- <div *ngIf="getQueue()">
     items left to fetch: {{ counter }} items left to fetch as data: {{ getQueue() }}
     <ul>
       <li *ngFor="let i of getQueue()">
@@ -31,6 +30,6 @@
         <b>{{ i.getRequest().getHeaders() }}</b>
       </li>
     </ul>
-  </div>
+  </div> -->
 
 </div>
