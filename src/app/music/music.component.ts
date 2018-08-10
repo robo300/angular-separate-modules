@@ -5,9 +5,6 @@ import { Component, OnInit } from '@angular/core';
 import { View } from '../model/view';
 import { Track } from './models/Track';
 
-const API_KEY = '2e4f87b49e793bc1bbb1566cf7dbe34f';
-const SHARED_SECRET = '7c6a47874f7dd6c16d2804755e398fd8';
-
 @Component({
   selector: 'app-music',
   templateUrl: './music.component.html',

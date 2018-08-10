@@ -2,7 +2,7 @@
 <input type="text" #input/>
 <button (click)="addMusic(input.value)">add music</button>
 
-<table *ngIf="getTracks().length > 0" style="border: 1px solid black">
+<table *ngIf="getTracks().length > 0" style="border: 1px solid black;" align="left">
   <tr>
     <th>image</th>
     <th>artist</th>
