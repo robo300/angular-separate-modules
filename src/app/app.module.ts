@@ -8,6 +8,9 @@ import { FetchService } from './fetch.service';
 import { QueueComponent } from './queue/queue.component';
 import { Queue } from './queue/queue';
 import { MusicComponent } from './music/music.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatCardModule, MatGridListModule, MatIconModule, MatTabsModule} from '@angular/material';
+import { MenuComponent } from './menu/menu.component';
 
 
 @NgModule({
@@ -15,10 +18,11 @@ import { MusicComponent } from './music/music.component';
     AppComponent,
     ShowsComponent,
     QueueComponent,
-    MusicComponent
+    MusicComponent,
+    MenuComponent
   ],
   imports: [
-    BrowserModule, HttpClientModule
+    BrowserModule, HttpClientModule, BrowserAnimationsModule, MatCardModule, MatGridListModule, MatIconModule, MatTabsModule
   ],
   providers: [FetchService, Queue, View],
   bootstrap: [AppComponent]

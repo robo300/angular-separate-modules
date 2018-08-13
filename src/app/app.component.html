@@ -2,8 +2,15 @@
 <div style="text-align:center">
   <h1>
     Your last week summary
-  </h1>  
-  <app-shows></app-shows>
-  <app-music></app-music>
+  </h1>
+  <mat-grid-list cols="2">
+    <mat-grid-tile>
+      <app-shows></app-shows>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <app-music></app-music>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <app-menu></app-menu>
 </div>
 

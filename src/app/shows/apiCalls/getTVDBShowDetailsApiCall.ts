@@ -8,7 +8,7 @@ export class GetTVDBShowDetailsApiCall extends AbstractApiCall {
     public additionalData = {};
 
     public doSomethingWithResponse(response: any) {
-        this.parent.setImage('http://image.tmdb.org/t/p/w185' + response.poster_path);
+        this.parent.setImage('http://image.tmdb.org/t/p/w500' + response.poster_path);
 
     }
     public getRequest(): ApiItem {

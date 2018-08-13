@@ -1,18 +1,65 @@
- music works!
-<input type="text" #input/>
-<button (click)="addMusic(input.value)">add music</button>
+<!--<table *ngIf="getTracks().length > 0" style="border: 1px solid black;" align="left">-->
+  <!--<tr>-->
+    <!--<th>image</th>-->
+    <!--<th>artist</th>-->
+    <!--<th>track name</th>-->
+  <!--</tr>-->
+  <!--<tr *ngFor="let track of getTracks()">-->
+    <!--<td>-->
+      <!--<img src="{{ track.getImage() }}" />-->
+    <!--</td>-->
+    <!--<td>{{ track.getArtist() }}</td>-->
+    <!--<td>{{ track.getTitle() }}</td>-->
+  <!--</tr>-->
+<!--</table>-->
+<mat-tab-group>
+  <mat-tab label="Week summary">
+    <mat-card class="example-card" style="margin: 5px">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Music</mat-card-title>
+        <mat-card-subtitle>You have listened:</mat-card-subtitle>
+      </mat-card-header>
+      <div class="textOverImage textOverImage2">
+        <h2>{{getTracks().length}} SONGS</h2>
+      </div>
+      <mat-card-content *ngIf="getTracks().length > 0">
+        <p>
+          Your last listened song is: <strong>{{getLastListenedSong().getArtist()}} - {{getLastListenedSong().getTitle()}}</strong>
+        </p>
+        <p>
+          Listened {{getLastListenedSong().getListenedHowLongFromNow()}}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-tab>
+  <mat-tab label="Week details">
+    <mat-card class="example-card" style="margin: 5px">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Music</mat-card-title>
+        <mat-card-subtitle>You have listened:</mat-card-subtitle>
+      </mat-card-header>
+      <div class="textOverImage textOverImage2">
+        <h2>{{getTracks().length}} SONGS</h2>
+      </div>
+      <mat-card-content *ngIf="getTracks().length > 0">
+        <p>
+          Your last listened song is: <strong>{{getLastListenedSong().getArtist()}} - {{getLastListenedSong().getTitle()}}</strong>
+        </p>
+        <p>
+          Listened {{getLastListenedSong().getListenedHowLongFromNow()}}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-tab>
+</mat-tab-group>
 
-<table *ngIf="getTracks().length > 0" style="border: 1px solid black;" align="left">
-  <tr>
-    <th>image</th>
-    <th>artist</th>
-    <th>track name</th>
-  </tr>
-  <tr *ngFor="let track of getTracks()">
-    <td>
-      <img src="{{ track.getImage() }}" />
-    </td>
-    <td>{{ track.getArtist() }}</td>
-    <td>{{ track.getTitle() }}</td>
-  </tr>
-</table>
