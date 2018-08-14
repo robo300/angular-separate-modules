@@ -1,34 +1,46 @@
-import { Track } from './../music/models/Track';
-import { Show } from '../shows/models/show';
+import {Track} from './../music/models/Track';
+import {Shows} from '../shows/models/shows';
+import {WatchedShow} from '../shows/models/watchedShowsModel';
+
 export class View {
-    private shows: Array<Show> = [];
-    private tracks: Array<Track> = [];
+  private shows: Shows = new Shows([]);
+  private tracks: Array<Track> = [];
 
-    constructor() {
-        console.log('view constructor');
-    }
+  constructor() {
+    console.log('view constructor');
+  }
 
-    public getShows(): Array<Show> {
-        return this.shows;
-    }
+  public getShows(): Array<WatchedShow> {
+    return this.shows.getAllShows();
+  }
 
-    public setShows(shows: Array<Show>): void {
-        this.shows = shows;
-    }
+  public setShows(shows: Array<WatchedShow>): void {
+    this.shows = new Shows(shows);
+  }
 
-    public addShow(show: Show): void {
-        this.shows.push(show);
-    }
+  public addShow(show: WatchedShow): void {
+    this.shows.addShow(show);
+  }
 
-    public getFirstShow(): Show {
-        return this.shows[0];
-    }
+  public getFirstShow(): WatchedShow {
+    return this.shows[0];
+  }
 
-    public getTracks(): Array<Track> {
-        return this.tracks;
-    }
+  public getTracks(): Array<Track> {
+    return this.tracks;
+  }
 
-    public addTrack(track: Track): void {
-        this.tracks.push(track);
-    }
+  public addTrack(track: Track): void {
+    this.tracks.push(track);
+  }
+
+  public getShowsFromLastWeek(): Array<WatchedShow> {
+    return this.getShows().filter(show => {
+      return show.wasWatchedWithinLastWeek();
+    });
+  }
+
+  public getEpisodesFromLastWeek(): Array<WatchedShow> {
+    return this.getShowsFromLastWeek();
+  }
 }

@@ -1,7 +1,7 @@
 import { ApiItem } from '../../model/apiItem';
 import { AbstractApiCall } from '../../pkg/abstractApiCall';
 
-export class GetShowsImageUrlApiCall extends AbstractApiCall {
+export class GetShowsImageUrl extends AbstractApiCall {
 
     public additionalData = {};
 

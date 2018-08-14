@@ -1,10 +1,10 @@
 import {View} from '../model/view';
-import {Show} from './models/show';
 import {Component, OnInit} from '@angular/core';
 import {Queue} from '../queue/queue';
 import {IObserver} from '../observable/IObserver';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
+import {WatchedShow} from './models/watchedShowsModel';
 
 @Component({
   selector: 'app-shows',
@@ -13,6 +13,8 @@ import 'rxjs/add/operator/map';
 })
 
 export class ShowsComponent implements OnInit, IObserver {
+
+  public data: any;
 
   receiveNotification<T>(message: T): void {
     // console.log('client received notification: ' + message);
@@ -25,11 +27,15 @@ export class ShowsComponent implements OnInit, IObserver {
     this.queue.registerObserver(this);
   }
 
-  public getShows(): Array<Show> {
-    return this.view.getShows();
+  public getShows(): Array<WatchedShow> {
+    return this.view.getShowsFromLastWeek();
   }
 
-  public getLastWatchedShow(): Show {
-    return this.view.getShows()[0];
+  public getLastWatchedShow(): WatchedShow {
+    return this.view.getShowsFromLastWeek()[0];
+  }
+
+  public getEpisodes(): Array<WatchedShow> {
+    return this.view.getEpisodesFromLastWeek();
   }
 }

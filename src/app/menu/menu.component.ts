@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {interval} from '../../../node_modules/rxjs/observable/interval';
-import {GetWatchedShowsApiCall} from '../shows/apiCalls/getWatchedShowsApiCall';
+import {GetWatchedShows} from '../shows/apiCalls/getWatchedShows';
 import {FetchService} from '../fetch.service';
 import {Queue} from '../queue/queue';
 import {View} from '../model/view';
@@ -53,7 +53,7 @@ export class MenuComponent implements OnInit {
   }
 
   onAddItemToQueueClick(e) {
-    const queueItem = new GetWatchedShowsApiCall(this.fetchService, this.view, this.queue);
+    const queueItem = new GetWatchedShows(this.fetchService, this.view, this.queue);
     this.queue.push(queueItem);
   }
 

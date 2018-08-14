@@ -1,8 +1,8 @@
-import { GetShowsImageUrlApiCall } from './getShowsImageUrlApiCall';
+import { GetShowsImageUrl } from './getShowsImageUrl';
 import { ApiItem } from '../../model/apiItem';
 import { AbstractApiCall } from '../../pkg/abstractApiCall';
 
-export class GetTVDBShowDetailsApiCall extends AbstractApiCall {
+export class GetTVDBShowDetails extends AbstractApiCall {
 
     public tmdbApiKey = '9604e1ac08c35ab5dbe3cae35f8af18f';
     public additionalData = {};

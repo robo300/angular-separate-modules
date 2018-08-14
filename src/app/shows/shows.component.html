@@ -22,7 +22,7 @@
         </mat-card-header>
         <mat-card-content>
           <div class="textOverImage textOverImage2">
-            <h2>{{getShows().length}} SHOWS</h2>
+            <h2>{{getShows().length}} SHOWS <br/>{{getEpisodes().length}} EPISODES</h2>
           </div>
           <p *ngIf="getShows().length > 0">
             Your last watched movie or TV show is: <strong>{{getLastWatchedShow().getTitle()}}</strong>

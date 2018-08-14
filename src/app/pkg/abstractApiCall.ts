@@ -2,7 +2,7 @@ import { Queue } from './../queue/queue';
 import { FetchService } from './../fetch.service';
 import { View } from './../model/view';
 import { ApiItem } from './../model/apiItem';
-
+// TODO: change package name to something meaningful
 export abstract class AbstractApiCall {
 
     constructor(protected fetchService: FetchService, protected view: View, protected queue: Queue, protected parent?: any) { }
