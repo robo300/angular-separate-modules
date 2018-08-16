@@ -1,9 +1,8 @@
-import {GetRecentTracksApiCall} from './apiCalls/GetRecentTracksApiCall';
 import {Queue} from './../queue/queue';
-import {FetchService} from './../fetch.service';
+import {FetchService} from '../core/fetch/fetch.service';
 import {Component, OnInit} from '@angular/core';
-import {View} from '../model/view';
 import {Track} from './models/Track';
+import {MusicService} from './music.service';
 
 @Component({
   selector: 'app-music',
@@ -12,28 +11,14 @@ import {Track} from './models/Track';
 })
 export class MusicComponent implements OnInit {
 
-  constructor(private fetchService: FetchService, private queue: Queue, private view: View) {
+  constructor(private fetchService: FetchService, private queue: Queue, private musicService: MusicService) {
   }
 
   ngOnInit() {
-    this.queue.registerObserver(this);
-  }
-
-  public addMusic(e) {
-    const queueItem = new GetRecentTracksApiCall(this.fetchService, this.view, this.queue);
-    this.queue.push(queueItem);
-  }
-
-  receiveNotification<T>(message: T): void {
-    // console.log('client received notification: ' + message);
-  }
-
-  public getQueue() {
-    return this.queue.getQueue();
   }
 
   public getTracks(): Array<Track> {
-    return this.view.getTracks();
+    return this.musicService.getTracks();
   }
 
   public getLastListenedSong(): Track {

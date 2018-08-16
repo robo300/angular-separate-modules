@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {interval} from '../../../node_modules/rxjs/observable/interval';
 import {GetWatchedShows} from '../shows/apiCalls/getWatchedShows';
-import {FetchService} from '../fetch.service';
+import {FetchService} from '../core/fetch/fetch.service';
 import {Queue} from '../queue/queue';
-import {View} from '../model/view';
 import {GetRecentTracksApiCall} from '../music/apiCalls/GetRecentTracksApiCall';
+import {ShowsService} from '../shows/shows.service';
+import {MusicService} from '../music/music.service';
 
 @Component({
   selector: 'app-menu',
@@ -15,21 +16,23 @@ export class MenuComponent implements OnInit {
 
   public looper: any;
 
-  constructor(private fetchService: FetchService, private queue: Queue, private view: View) { }
+  constructor(private fetchService: FetchService, private queue: Queue, private showsContainer: ShowsService,
+              private musicContainer: MusicService) {
+  }
 
   ngOnInit() {
   }
 
-  onStopButtonClick(e) {
+  onStopButtonClick() {
     this.stopLooper();
   }
 
-  onStartButtonClick(e) {
+  onStartButtonClick() {
     this.startLooper();
   }
 
   private startLooper() {
-    this.looper = interval(100).subscribe(v => {
+    this.looper = interval(100).subscribe(() => {
       if (this.queue.getSize() > 0) {
         if (!this.queue.isBusy()) {
           this.queue.getFirst().getDataFromApi();
@@ -52,17 +55,17 @@ export class MenuComponent implements OnInit {
     }
   }
 
-  onAddItemToQueueClick(e) {
-    const queueItem = new GetWatchedShows(this.fetchService, this.view, this.queue);
+  onAddItemToQueueClick() {
+    const queueItem = new GetWatchedShows(this.fetchService, this.showsContainer, this.queue);
     this.queue.push(queueItem);
   }
 
-  onPrintItemsClick(e) {
+  onPrintItemsClick() {
     this.queue.print();
   }
 
-  public addMusic(e) {
-    const queueItem = new GetRecentTracksApiCall(this.fetchService, this.view, this.queue);
+  public addMusic() {
+    const queueItem = new GetRecentTracksApiCall(this.fetchService, this.musicContainer, this.queue);
     this.queue.push(queueItem);
   }
 

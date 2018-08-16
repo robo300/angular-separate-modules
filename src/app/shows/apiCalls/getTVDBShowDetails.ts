@@ -1,6 +1,6 @@
 import { GetShowsImageUrl } from './getShowsImageUrl';
-import { ApiItem } from '../../model/apiItem';
-import { AbstractApiCall } from '../../pkg/abstractApiCall';
+import { ApiItem } from '../../core/model/apiItem';
+import { AbstractApiCall } from '../../core/pkg/abstractApiCall';
 
 export class GetTVDBShowDetails extends AbstractApiCall {
 

@@ -1,7 +1,7 @@
 import { GetTVDBShowDetails } from './getTVDBShowDetails';
 import { HttpHeaders } from '@angular/common/http';
-import { ApiItem } from '../../model/apiItem';
-import { AbstractApiCall } from '../../pkg/abstractApiCall';
+import { ApiItem } from '../../core/model/apiItem';
+import { AbstractApiCall } from '../../core/pkg/abstractApiCall';
 import { from } from 'rxjs/observable/from';
 import { WatchedShow } from '../models/watchedShowsModel';
 
@@ -25,8 +25,8 @@ export class GetWatchedShows extends AbstractApiCall {
       const source$ = from(response);
       source$.subscribe((show: WatchedShow) => {
         const wShow = new WatchedShow(show); // TODO: change variable name
-        this.view.addShow(wShow);
-        const queueItem = new GetTVDBShowDetails(this.fetchService, this.view, this.queue, wShow);
+        this.dataContainer.addShow(wShow);
+        const queueItem = new GetTVDBShowDetails(this.fetchService, this.dataContainer, this.queue, wShow);
         queueItem.additionalData = {'tmdb': wShow.show.ids.tmdb};
         this.queue.push(queueItem);
       });

@@ -1,5 +1,5 @@
-import { ApiItem } from './../../model/apiItem';
-import { AbstractApiCall } from '../../pkg/abstractApiCall';
+import { ApiItem } from '../../core/model/apiItem';
+import { AbstractApiCall } from '../../core/pkg/abstractApiCall';
 import {TrackResponse} from '../models/response/trackResponse';
 import {Track} from '../models/Track';
 import {Keys} from '../keys';
@@ -12,7 +12,7 @@ export class GetRecentTracksApiCall extends AbstractApiCall {
             const trackArtist = track.artist['#text'];
             const trackImage = track.image[2]['#text'];
             console.log(`${trackArtist} - ${trackName}`);
-            this.view.addTrack(new Track(trackName, trackArtist, trackImage));
+            this.dataContainer.addTrack(new Track(trackName, trackArtist, trackImage));
         }
     }
     public getRequest(): ApiItem {

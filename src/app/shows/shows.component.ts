@@ -1,10 +1,9 @@
-import {View} from '../model/view';
 import {Component, OnInit} from '@angular/core';
 import {Queue} from '../queue/queue';
-import {IObserver} from '../observable/IObserver';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import {WatchedShow} from './models/watchedShowsModel';
+import {ShowsService} from './shows.service';
 
 @Component({
   selector: 'app-shows',
@@ -12,30 +11,41 @@ import {WatchedShow} from './models/watchedShowsModel';
   styleUrls: ['./shows.component.css']
 })
 
-export class ShowsComponent implements OnInit, IObserver {
+export class ShowsComponent implements OnInit {
 
-  public data: any;
+  public shows: Array<WatchedShow>;
 
-  receiveNotification<T>(message: T): void {
-    // console.log('client received notification: ' + message);
-  }
-
-  constructor(private queue: Queue, private view: View) {
+  constructor(private queue: Queue, private showsService: ShowsService) {
   }
 
   ngOnInit() {
-    this.queue.registerObserver(this);
   }
 
   public getShows(): Array<WatchedShow> {
-    return this.view.getShowsFromLastWeek();
+    return this.showsService.getShowsFromLastWeek();
   }
 
   public getLastWatchedShow(): WatchedShow {
-    return this.view.getShowsFromLastWeek()[0];
+    return this.showsService.getShowsFromLastWeek()[0];
   }
 
-  public getEpisodes(): Array<WatchedShow> {
-    return this.view.getEpisodesFromLastWeek();
+  public getEpisodes(): String[] {
+    return this.showsService.getEpisodesFromLastWeek();
+  }
+
+  public getShowsCount(): number {
+    return this.showsService.getShowsFromLastWeek().length;
+  }
+
+  public getEpisodesCount(): number {
+    return this.showsService.getEpisodesFromLastWeek().length;
+  }
+
+  public displayTooltip(): String {
+    let displayInfo = '';
+    for (const show of this.getShows()) {
+      displayInfo += show.getTitle() + '\n';
+    }
+    return displayInfo;
   }
 }
