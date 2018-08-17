@@ -4,6 +4,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import {WatchedShow} from './models/watchedShowsModel';
 import {ShowsService} from './shows.service';
+import {Episode} from './models/episode';
 
 @Component({
   selector: 'app-shows',
@@ -25,27 +26,23 @@ export class ShowsComponent implements OnInit {
     return this.showsService.getShowsFromLastWeek();
   }
 
-  public getLastWatchedShow(): WatchedShow {
-    return this.showsService.getShowsFromLastWeek()[0];
-  }
-
-  public getEpisodes(): String[] {
+  public getEpisodes(): Array<Episode> {
     return this.showsService.getEpisodesFromLastWeek();
   }
 
+  public getLastWatchedShow(): WatchedShow {
+    return this.getShows()[0];
+  }
+
   public getShowsCount(): number {
-    return this.showsService.getShowsFromLastWeek().length;
+    return this.getShows().length;
   }
 
   public getEpisodesCount(): number {
-    return this.showsService.getEpisodesFromLastWeek().length;
+    return this.getEpisodes().length;
   }
 
-  public displayTooltip(): String {
-    let displayInfo = '';
-    for (const show of this.getShows()) {
-      displayInfo += show.getTitle() + '\n';
-    }
-    return displayInfo;
+  public getWeekDetailsInfo(): String {
+    return this.getShows().map(show => show.getTitle()).join();
   }
 }

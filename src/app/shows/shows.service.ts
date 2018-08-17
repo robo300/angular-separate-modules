@@ -2,11 +2,13 @@ import {Injectable} from '@angular/core';
 import {WatchedShow} from './models/watchedShowsModel';
 import {Shows} from './models/shows';
 import * as moment from 'moment';
+import {Episode} from './models/episode';
 
 @Injectable()
 export class ShowsService {
 
   private shows: Shows = new Shows([]);
+  private episodes: Episode[] = [];
 
   constructor() {
   }
@@ -25,23 +27,23 @@ export class ShowsService {
     this.shows.addShow(show);
   }
 
-  public getEpisodesFromLastWeek(): Array<String> {
-    const episodes = [];
-    for (const show of this.getShows()) {
-      for (const season of show.seasons) {
-        for (const episode of season.episodes) {
-          if (this.episodeWasWatchedWithinLastWeek(episode)) {
-            episodes.push(episode);
-          }
-        }
-      }
-    }
-    return episodes;
+  public addEpisode(episode: Episode): void {
+    this.episodes.push(episode);
+  }
+
+  public getAllEpisodes(): Array<Episode> {
+    return this.episodes;
+  }
+
+  public getEpisodesFromLastWeek(): Array<Episode> {
+    return this.episodes.filter(episode => {
+      return this.itemWasWatchedWithinLastWeek(episode.last_watched_at);
+    });
   }
 
   // TODO: that method is copy pasted
-  private episodeWasWatchedWithinLastWeek(episode): boolean {
-    const d = new Date(Date.parse(episode.last_watched_at));
+  private itemWasWatchedWithinLastWeek(dateToCheck): boolean {
+    const d = new Date(Date.parse(dateToCheck));
     const lastWatchedDate = moment(d);
     const yesterday = moment().subtract(7, 'days').startOf('day');
     return lastWatchedDate.isSameOrAfter(yesterday);

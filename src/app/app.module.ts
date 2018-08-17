@@ -12,7 +12,6 @@ import {MatCardModule, MatGridListModule, MatIconModule, MatTabsModule} from '@a
 import { MenuComponent } from './menu/menu.component';
 import {ShowsService} from './shows/shows.service';
 import {MusicService} from './music/music.service';
-import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -24,7 +23,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MenuComponent
   ],
   imports: [
-    BrowserModule, HttpClientModule, BrowserAnimationsModule, MatCardModule, MatGridListModule, MatIconModule, MatTabsModule, MatTooltipModule
+    BrowserModule, HttpClientModule, BrowserAnimationsModule, MatCardModule,
+    MatGridListModule, MatIconModule, MatTabsModule
   ],
   providers: [FetchService, Queue, ShowsService, MusicService],
   bootstrap: [AppComponent]

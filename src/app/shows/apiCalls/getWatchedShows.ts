@@ -4,6 +4,7 @@ import { ApiItem } from '../../core/model/apiItem';
 import { AbstractApiCall } from '../../core/pkg/abstractApiCall';
 import { from } from 'rxjs/observable/from';
 import { WatchedShow } from '../models/watchedShowsModel';
+import {Episode} from '../models/episode';
 
 export class GetWatchedShows extends AbstractApiCall {
 
@@ -25,6 +26,12 @@ export class GetWatchedShows extends AbstractApiCall {
       const source$ = from(response);
       source$.subscribe((show: WatchedShow) => {
         const wShow = new WatchedShow(show); // TODO: change variable name
+        for (const season of wShow.seasons) {
+          for (const episode of season.episodes) {
+            const wEpisode = new Episode(episode.last_watched_at, episode.number, episode.plays);
+            this.dataContainer.addEpisode(wEpisode);
+          }
+        }
         this.dataContainer.addShow(wShow);
         const queueItem = new GetTVDBShowDetails(this.fetchService, this.dataContainer, this.queue, wShow);
         queueItem.additionalData = {'tmdb': wShow.show.ids.tmdb};
